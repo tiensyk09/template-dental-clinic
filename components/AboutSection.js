@@ -59,9 +59,9 @@ export default function AboutSection() {
 
           {/* Right: Image collage with center badge */}
           <div style={{ position: 'relative' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gridTemplateRows: '175px 175px', gap: 12 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: '175px 175px', gap: 12 }}>
               <img
-                src="https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&w=800&q=80"
+                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80"
                 alt="Không gian Nha Khoa Smile"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 14 }}
                 onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80'; }}
@@ -87,7 +87,7 @@ export default function AboutSection() {
             </div>
 
             {/* Center badge */}
-            <div style={{ position: 'absolute', top: '50%', left: '42%', transform: 'translate(-50%, -50%)', backgroundColor: NAVY, color: '#fff', borderRadius: 14, padding: '20px 22px', textAlign: 'center', boxShadow: '0 14px 32px rgba(12,48,97,0.4)', border: '4px solid #fff', maxWidth: 185 }}>
+            <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: NAVY, color: '#fff', borderRadius: 14, padding: '20px 22px', textAlign: 'center', boxShadow: '0 14px 32px rgba(12,48,97,0.4)', border: '4px solid #fff', maxWidth: 185 }}>
               <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
                 <LogoTooth size={34} color="#fff" />
               </div>

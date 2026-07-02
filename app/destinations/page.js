@@ -13,7 +13,7 @@ export default function DestinationsPage() {
       location: '123 Đường Nguyễn Văn Cừ, Q.1, TP. Hồ Chí Minh',
       hours: 'Giờ làm việc: 8:00 - 20:00 (Tất cả các ngày)',
       description: 'Cơ sở trung tâm với 12 ghế nha hiện đại, phòng phẫu thuật Implant vô trùng chuẩn quốc tế, hệ thống chụp phim CT Cone Beam 3D và labo răng sứ CAD/CAM ngay tại chỗ.',
-      image: 'https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80',
       badge: 'Cơ Sở Trung Tâm'
     },
     {

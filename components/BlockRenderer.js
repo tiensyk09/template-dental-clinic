@@ -316,11 +316,11 @@ const DEFAULT_CATEGORIES = [
   { title: 'Điều trị tổng quát', sub: '12 dịch vụ', img: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=300&q=80', icon: '🩺' },
   { title: 'Nha khoa trẻ em', sub: '6 dịch vụ', img: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=300&q=80', icon: '🧒' },
   { title: 'Nhổ răng khôn', sub: '3 dịch vụ', img: 'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=300&q=80', icon: '🪥' },
-  { title: 'Điều trị tủy', sub: '4 dịch vụ', img: 'https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&w=300&q=80', icon: '⚕️' },
+  { title: 'Điều trị tủy', sub: '4 dịch vụ', img: 'https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?auto=format&fit=crop&w=300&q=80', icon: '⚕️' },
   { title: 'Điều trị nha chu', sub: '5 dịch vụ', img: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=300&q=80', icon: '🪄' },
   { title: 'Cạo vôi răng', sub: '2 dịch vụ', img: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=300&q=80', icon: '🫧' },
   { title: 'Hàm tháo lắp', sub: '4 dịch vụ', img: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=300&q=80', icon: '🦿' },
-  { title: 'Khám định kỳ', sub: '3 dịch vụ', img: 'https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&w=300&q=80', icon: '📋' },
+  { title: 'Khám định kỳ', sub: '3 dịch vụ', img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=300&q=80', icon: '📋' },
 ];
 
 function CategoriesBlock({ configs = {} }) {

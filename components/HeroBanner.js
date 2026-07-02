@@ -39,7 +39,7 @@ export default function HeroBanner() {
         { icon: <IconBadgeCheck size={15} />, text: 'Trụ Implant chính hãng' },
         { icon: <IconClock size={15} />, text: 'Bảo hành đến 20 năm' },
       ],
-      image: 'https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&w=1200&q=80',
+      image: 'https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?auto=format&fit=crop&w=1200&q=80',
     },
   ];
 
