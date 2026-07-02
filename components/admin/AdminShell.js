@@ -1,0 +1,197 @@
+'use client';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+
+const navItems = [
+  { section: 'ANALYTICS' },
+  { href: '/admin', label: 'Dashboard', icon: '📊' },
+  { href: '/admin/profile', label: 'Profile Settings', icon: '👤' },
+  { section: 'MANAGEMENT' },
+  { href: '/admin/products', label: 'Products / Catalog', icon: '🛍️' },
+  { href: '/admin/orders', label: 'Orders / Checkout', icon: '📦' },
+  { href: '/admin/coupons', label: 'Coupons / Discounts', icon: '🎟️' },
+  { href: '/admin/posts', label: 'Changelog / Posts', icon: '📝' },
+  { href: '/admin/files', label: 'Files / Media', icon: '📁' },
+  { href: '/admin/members', label: 'Member Directory', icon: '👥' },
+  { href: '/admin/pages', label: 'Page Builder', icon: '🎨' },
+  { href: '/admin/settings', label: 'Global Settings', icon: '⚙️' },
+  { href: '/admin/plugins', label: 'Plugin System', icon: '🧩' },
+  { section: 'NAVIGATION' },
+  { href: '/', label: 'Return to Homepage', icon: '⚡' },
+];
+
+export default function AdminShell({ children, title = 'Dashboard' }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const [user, setUser] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('admin_user');
+        return saved ? JSON.parse(saved) : null;
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  });
+  const [loggingOut, setLoggingOut] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    checkAuth();
+  }, [pathname]); // run on pathname change to ensure fresh check
+
+  async function checkAuth() {
+    try {
+      const res = await fetch('/api/auth/login');
+      if (res.ok) {
+        const data = await res.json();
+        const isStaffUser = data.user.role === 'admin' || data.user.role === 'mod';
+        
+        // If normal member tries to access pages other than /admin or /admin/profile, redirect to /admin
+        if (!isStaffUser && pathname !== '/admin' && pathname !== '/admin/profile') {
+          router.push('/admin');
+          return;
+        }
+        
+        setUser(data.user);
+        localStorage.setItem('admin_user', JSON.stringify(data.user));
+      } else {
+        localStorage.removeItem('admin_user');
+        router.push('/login');
+      }
+    } catch {
+      localStorage.removeItem('admin_user');
+      router.push('/login');
+    }
+  }
+
+  async function handleLogout() {
+    setLoggingOut(true);
+    localStorage.removeItem('admin_user');
+    await fetch('/api/auth/login', { method: 'DELETE' });
+    router.push('/login');
+  }
+
+  const isActive = (href) => {
+    if (href === '/admin') return pathname === '/admin';
+    return pathname.startsWith(href);
+  };
+
+  const isStaff = mounted && (user?.role === 'admin' || user?.role === 'mod');
+
+  const initials = mounted && user?.displayName
+    ? user.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
+    : '?';
+
+  const roleLabel = { admin: 'Administrator', mod: 'Moderator', member: 'Member' };
+  
+  return (
+    <div className="admin-layout-root">
+      {/* Background neon glows */}
+      <div className="glow-bg-admin"></div>
+      <div className="noise-overlay-admin"></div>
+
+      {sidebarOpen && (
+        <div
+          className="sidebar-overlay-mobile"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar navigation */}
+      <aside className={`admin-sidebar ${sidebarOpen ? 'mobile-open' : ''}`}>
+        <Link href="/admin" className="sidebar-brand" onClick={() => setSidebarOpen(false)}>
+          <span className="logo-icon">🦷</span>
+          <div className="sidebar-brand-text">
+            <div className="sidebar-brand-title">Nha Khoa Smile</div>
+            <div className="sidebar-brand-sub">Admin Dashboard</div>
+          </div>
+        </Link>
+
+        <nav className="sidebar-nav">
+          {navItems.map((item, i) => {
+            if (item.section) {
+              // Hide management section for non-staff
+              if (item.section === 'MANAGEMENT' && !isStaff) return null;
+              return <div key={i} className="sidebar-section-label">{item.section}</div>;
+            }
+            if (item.href === '/admin/products' && !isStaff) return null;
+            if (item.href === '/admin/orders' && !isStaff) return null;
+            if (item.href === '/admin/coupons' && !isStaff) return null;
+            if (item.href === '/admin/posts' && !isStaff) return null;
+            if (item.href === '/admin/files' && !isStaff) return null;
+            if (item.href === '/admin/members' && !isStaff) return null;
+            if (item.href === '/admin/pages' && !isStaff) return null;
+            if (item.href === '/admin/settings' && !isStaff) return null;
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`sidebar-link ${isActive(item.href) ? 'active' : ''}`}
+                onClick={() => setSidebarOpen(false)}
+              >
+                <span className="sidebar-icon">{item.icon}</span>
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* User profile card */}
+        <div className="sidebar-user">
+          {mounted && user ? (
+            <div>
+              <div className="sidebar-user-info">
+                <div className="sidebar-avatar">{initials}</div>
+                <div style={{ flex: 1, overflow: 'hidden' }}>
+                  <div className="sidebar-user-name" title={user.displayName}>
+                    {user.displayName}
+                  </div>
+                  <div className="sidebar-user-role">
+                    {roleLabel[user.role] || user.role} <span className="tier-tag">{user.tier}</span>
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={handleLogout}
+                disabled={loggingOut}
+                className="btn-logout"
+              >
+                {loggingOut ? 'Logging out...' : '⎋ Sign Out'}
+              </button>
+            </div>
+          ) : (
+            <div className="sidebar-loading-user">
+              <div className="skeleton-line" />
+            </div>
+          )}
+        </div>
+      </aside>
+
+      {/* Main content body */}
+      <div className="admin-main">
+        {/* Floating mobile toggle button */}
+        <button
+          className="sidebar-mobile-toggle-floating"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          aria-label="Menu"
+        >
+          ☰
+        </button>
+
+        <header className="admin-content-header">
+          <h2>{title}</h2>
+        </header>
+
+        <main className="admin-content">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+}
