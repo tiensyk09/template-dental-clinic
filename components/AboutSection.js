@@ -61,24 +61,28 @@ export default function AboutSection() {
           <div style={{ position: 'relative' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gridTemplateRows: '175px 175px', gap: 12 }}>
               <img
-                src="https://images.unsplash.com/photo-1629909615184-74f5da4b4b14?auto=format&fit=crop&w=800&q=80"
+                src="https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&w=800&q=80"
                 alt="Không gian Nha Khoa Smile"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 14 }}
+                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80'; }}
               />
               <img
                 src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&q=80"
                 alt="Bác sĩ Nha Khoa Smile"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 14 }}
+                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80'; }}
               />
               <img
                 src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=800&q=80"
                 alt="Trang thiết bị hiện đại"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 14 }}
+                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80'; }}
               />
               <img
                 src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=600&q=80"
                 alt="Điều trị nha khoa"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 14 }}
+                onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80'; }}
               />
             </div>
 
