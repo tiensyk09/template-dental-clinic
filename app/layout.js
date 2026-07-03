@@ -2,6 +2,7 @@ import './globals.css';
 import { CartProvider } from '@/components/CartContext';
 import LayoutWrapper from '@/components/LayoutWrapper';
 import PluginRunner from '@/components/PluginRunner';
+import TopLoader from '@/components/TopLoader';
 
 export const metadata = {
   title: 'Nha Khoa Smile - Tỏa sáng nụ cười Việt',
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="vi">
       <body className="bg-white text-gray-800 font-sans antialiased min-h-screen">
+        <TopLoader color="#1a6fc4" />
         <CartProvider>
           <LayoutWrapper>
             {children}
