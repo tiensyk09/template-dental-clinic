@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const rows = await query('SELECT "key", "value" FROM settings');
+    const rows = await query('SELECT `key`, `value` FROM settings');
     const settings = {};
     rows.forEach(r => {
       settings[r.key] = r.value;

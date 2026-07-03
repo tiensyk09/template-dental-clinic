@@ -87,7 +87,7 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <AdminShell title="Loading Profile...">
+      <AdminShell title="Đang tải...">
         <div style={{ display: 'flex', justifyContent: 'center', padding: '60px' }}>
           <div style={{ width: '40px', height: '40px', border: '3px solid rgba(139, 92, 246, 0.2)', borderTopColor: 'var(--admin-primary)', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
@@ -97,7 +97,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <AdminShell title="Profile Settings">
+    <AdminShell title="Hồ sơ của tôi">
       <div className="adm-card">
         <div className="adm-card-header">
           <div className="adm-card-title">👤 Edit Profile Settings</div>

@@ -26,7 +26,13 @@ export default function SettingsDashboard() {
     columns: []
   });
 
-  // Active settings tab: 'seo' | 'header' | 'footer'
+  // Liên hệ mạng xã hội
+  const [social, setSocial] = useState({
+    facebook: '', zalo: '', youtube: '', tiktok: '', instagram: '',
+    x: '', telegram: '', discord: '', linkedin: ''
+  });
+
+  // Active settings tab: 'seo' | 'header' | 'footer' | 'social'
   const [activeTab, setActiveTab] = useState('seo');
 
   useEffect(() => {
@@ -67,6 +73,18 @@ export default function SettingsDashboard() {
           copyright: s.footer_copyright || '',
           columns: parsedCols
         });
+
+        setSocial({
+          facebook: s.social_facebook || '',
+          zalo: s.social_zalo || '',
+          youtube: s.social_youtube || '',
+          tiktok: s.social_tiktok || '',
+          instagram: s.social_instagram || '',
+          x: s.social_x || '',
+          telegram: s.social_telegram || '',
+          discord: s.social_discord || '',
+          linkedin: s.social_linkedin || ''
+        });
       } else {
         setMsg({ type: 'error', text: 'Failed to load system settings' });
       }
@@ -90,7 +108,16 @@ export default function SettingsDashboard() {
       header_logo_icon: header.logoIcon,
       header_links: JSON.stringify(header.links),
       footer_copyright: footer.copyright,
-      footer_columns: JSON.stringify(footer.columns)
+      footer_columns: JSON.stringify(footer.columns),
+      social_facebook: social.facebook,
+      social_zalo: social.zalo,
+      social_youtube: social.youtube,
+      social_tiktok: social.tiktok,
+      social_instagram: social.instagram,
+      social_x: social.x,
+      social_telegram: social.telegram,
+      social_discord: social.discord,
+      social_linkedin: social.linkedin
     };
 
     try {
@@ -186,7 +213,7 @@ export default function SettingsDashboard() {
   };
 
   return (
-    <AdminShell title="⚙️ Global Site Configuration">
+    <AdminShell title="Cài đặt chung">
       {msg && (
         <div className={`adm-alert adm-alert-${msg.type === 'success' ? 'success' : 'error'}`} style={{ marginBottom: '20px' }}>
           {msg.text}
@@ -240,6 +267,19 @@ export default function SettingsDashboard() {
               }}
             >
               🏢 Footer Configuration
+            </button>
+            <button
+              onClick={() => setActiveTab('social')}
+              className="btn btn-secondary"
+              style={{
+                textAlign: 'left',
+                justifyContent: 'flex-start',
+                backgroundColor: activeTab === 'social' ? 'var(--admin-primary)' : 'rgba(255,255,255,0.02)',
+                color: activeTab === 'social' ? '#fff' : 'var(--admin-muted)',
+                borderColor: activeTab === 'social' ? 'var(--admin-primary)' : 'var(--admin-border)'
+              }}
+            >
+              📱 Mạng xã hội
             </button>
 
             <button
@@ -496,6 +536,42 @@ export default function SettingsDashboard() {
                       </div>
                     )}
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* --- TAB: SOCIAL MEDIA --- */}
+            {activeTab === 'social' && (
+              <div>
+                <div className="adm-card-header">
+                  <div className="adm-card-title">📱 Liên hệ mạng xã hội</div>
+                </div>
+                <div className="adm-card-body" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <p style={{ color: 'var(--admin-muted)', fontSize: '13px', margin: '0 0 4px' }}>
+                    Dán đường link đầy đủ (bắt đầu bằng https://). Để trống ô nào thì icon tương ứng sẽ tự động ẩn trên website.
+                  </p>
+                  {[
+                    { key: 'facebook', label: 'Facebook / Fanpage', icon: '📘', ph: 'https://facebook.com/trang-cua-ban' },
+                    { key: 'zalo', label: 'Zalo', icon: '💬', ph: 'https://zalo.me/0909123456' },
+                    { key: 'x', label: 'X (Twitter)', icon: '𝕏', ph: 'https://x.com/tai-khoan' },
+                    { key: 'telegram', label: 'Telegram', icon: '✈️', ph: 'https://t.me/tai-khoan' },
+                    { key: 'discord', label: 'Discord', icon: '🎮', ph: 'https://discord.gg/moi-tham-gia' },
+                    { key: 'linkedin', label: 'LinkedIn', icon: '💼', ph: 'https://linkedin.com/company/cong-ty' },
+                    { key: 'youtube', label: 'YouTube', icon: '▶️', ph: 'https://youtube.com/@kenh' },
+                    { key: 'instagram', label: 'Instagram', icon: '📷', ph: 'https://instagram.com/tai-khoan' },
+                    { key: 'tiktok', label: 'TikTok', icon: '🎵', ph: 'https://tiktok.com/@tai-khoan' },
+                  ].map((f) => (
+                    <div className="adm-form-group" key={f.key}>
+                      <label className="adm-label">{f.icon} {f.label}</label>
+                      <input
+                        type="text"
+                        className="adm-input"
+                        value={social[f.key]}
+                        onChange={e => setSocial({ ...social, [f.key]: e.target.value })}
+                        placeholder={f.ph}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             )}

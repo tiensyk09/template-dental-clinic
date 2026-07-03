@@ -88,7 +88,7 @@ export default function MembersPage() {
   const tierLabels = { Free: 'Free Developer', Pro: 'Pro Taste-1', Enterprise: 'Enterprise Team' };
 
   return (
-    <AdminShell title="Member Directory & Tier Ranks">
+    <AdminShell title="Quản lý thành viên">
       {msg && (
         <div className={`adm-alert adm-alert-${msg.type === 'success' ? 'success' : 'error'}`}>
           {msg.text}

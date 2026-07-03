@@ -13,19 +13,31 @@ export default function ContactPage() {
   });
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone || !formData.message) {
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.message.trim()) {
       showToast('Vui lòng điền đầy đủ các thông tin bắt buộc!', 'error');
       return;
     }
     setSubmitting(true);
-    // Simulate API request
-    setTimeout(() => {
-      showToast('Gửi thông tin liên hệ thành công! Chúng tôi sẽ phản hồi sớm nhất.', 'success');
-      setFormData({ name: '', phone: '', email: '', message: '' });
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        showToast(data.message || 'Gửi thông tin liên hệ thành công! Chúng tôi sẽ phản hồi sớm nhất.', 'success');
+        setFormData({ name: '', phone: '', email: '', message: '' });
+      } else {
+        showToast(data.error || 'Gửi liên hệ thất bại, vui lòng thử lại.', 'error');
+      }
+    } catch {
+      showToast('Lỗi kết nối, vui lòng thử lại sau.', 'error');
+    } finally {
       setSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (

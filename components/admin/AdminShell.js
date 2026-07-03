@@ -3,25 +3,33 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
+// Menu quản trị — sắp xếp theo nhóm chức năng, nhãn tiếng Việt
 const navItems = [
-  { section: 'ANALYTICS' },
-  { href: '/admin', label: 'Dashboard', icon: '📊' },
-  { href: '/admin/profile', label: 'Profile Settings', icon: '👤' },
-  { section: 'MANAGEMENT' },
-  { href: '/admin/products', label: 'Products / Catalog', icon: '🛍️' },
-  { href: '/admin/orders', label: 'Orders / Checkout', icon: '📦' },
-  { href: '/admin/coupons', label: 'Coupons / Discounts', icon: '🎟️' },
-  { href: '/admin/posts', label: 'Changelog / Posts', icon: '📝' },
-  { href: '/admin/files', label: 'Files / Media', icon: '📁' },
-  { href: '/admin/members', label: 'Member Directory', icon: '👥' },
-  { href: '/admin/pages', label: 'Page Builder', icon: '🎨' },
-  { href: '/admin/settings', label: 'Global Settings', icon: '⚙️' },
-  { href: '/admin/plugins', label: 'Plugin System', icon: '🧩' },
-  { section: 'NAVIGATION' },
-  { href: '/', label: 'Return to Homepage', icon: '⚡' },
+  { section: 'TỔNG QUAN' },
+  { href: '/admin', label: 'Bảng điều khiển', icon: '📊' },
+
+  { section: 'NỘI DUNG', staff: true },
+  { href: '/admin/products', label: 'Sản phẩm / Dịch vụ', icon: '🏷️', staff: true },
+  { href: '/admin/posts', label: 'Bài viết & Tin tức', icon: '📝', staff: true },
+  { href: '/admin/pages', label: 'Trình dựng trang', icon: '🎨', staff: true },
+  { href: '/admin/files', label: 'Tệp & Media', icon: '📁', staff: true },
+
+  { section: 'BÁN HÀNG', staff: true },
+  { href: '/admin/orders', label: 'Đơn hàng', icon: '📦', staff: true },
+  { href: '/admin/coupons', label: 'Mã giảm giá', icon: '🎟️', staff: true },
+  { href: '/admin/messages', label: 'Tin nhắn liên hệ', icon: '✉️', staff: true },
+
+  { section: 'NGƯỜI DÙNG', staff: true },
+  { href: '/admin/members', label: 'Thành viên', icon: '👥', staff: true },
+
+  { section: 'HỆ THỐNG' },
+  { href: '/admin/settings', label: 'Cài đặt chung', icon: '⚙️', staff: true },
+  { href: '/admin/plugins', label: 'Tiện ích mở rộng', icon: '🧩', staff: true },
+  { href: '/admin/profile', label: 'Hồ sơ của tôi', icon: '👤' },
+  { href: '/', label: 'Về trang web', icon: '↩️' },
 ];
 
-export default function AdminShell({ children, title = 'Dashboard' }) {
+export default function AdminShell({ children, title = 'Bảng điều khiển' }) {
   const pathname = usePathname();
   const router = useRouter();
   const [user, setUser] = useState(() => {
@@ -42,7 +50,7 @@ export default function AdminShell({ children, title = 'Dashboard' }) {
   useEffect(() => {
     setMounted(true);
     checkAuth();
-  }, [pathname]); // run on pathname change to ensure fresh check
+  }, [pathname]); // kiểm tra lại mỗi khi đổi trang
 
   async function checkAuth() {
     try {
@@ -50,22 +58,22 @@ export default function AdminShell({ children, title = 'Dashboard' }) {
       if (res.ok) {
         const data = await res.json();
         const isStaffUser = data.user.role === 'admin' || data.user.role === 'mod';
-        
-        // If normal member tries to access pages other than /admin or /admin/profile, redirect to /admin
+
+        // Thành viên thường chỉ được vào /admin và /admin/profile
         if (!isStaffUser && pathname !== '/admin' && pathname !== '/admin/profile') {
           router.push('/admin');
           return;
         }
-        
+
         setUser(data.user);
         localStorage.setItem('admin_user', JSON.stringify(data.user));
       } else {
         localStorage.removeItem('admin_user');
-        router.push('/login');
+        router.push('/admin/login');
       }
     } catch {
       localStorage.removeItem('admin_user');
-      router.push('/login');
+      router.push('/admin/login');
     }
   }
 
@@ -73,11 +81,12 @@ export default function AdminShell({ children, title = 'Dashboard' }) {
     setLoggingOut(true);
     localStorage.removeItem('admin_user');
     await fetch('/api/auth/login', { method: 'DELETE' });
-    router.push('/login');
+    router.push('/admin/login');
   }
 
   const isActive = (href) => {
     if (href === '/admin') return pathname === '/admin';
+    if (href === '/') return false;
     return pathname.startsWith(href);
   };
 
@@ -87,47 +96,34 @@ export default function AdminShell({ children, title = 'Dashboard' }) {
     ? user.displayName.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
     : '?';
 
-  const roleLabel = { admin: 'Administrator', mod: 'Moderator', member: 'Member' };
-  
+  const roleLabel = { admin: 'Quản trị viên', mod: 'Điều hành viên', member: 'Thành viên' };
+
   return (
     <div className="admin-layout-root">
-      {/* Background neon glows */}
       <div className="glow-bg-admin"></div>
       <div className="noise-overlay-admin"></div>
 
       {sidebarOpen && (
-        <div
-          className="sidebar-overlay-mobile"
-          onClick={() => setSidebarOpen(false)}
-        />
+        <div className="sidebar-overlay-mobile" onClick={() => setSidebarOpen(false)} />
       )}
 
-      {/* Sidebar navigation */}
+      {/* Sidebar */}
       <aside className={`admin-sidebar ${sidebarOpen ? 'mobile-open' : ''}`}>
         <Link href="/admin" className="sidebar-brand" onClick={() => setSidebarOpen(false)}>
           <span className="logo-icon">🦷</span>
           <div className="sidebar-brand-text">
             <div className="sidebar-brand-title">Nha Khoa Smile</div>
-            <div className="sidebar-brand-sub">Admin Dashboard</div>
+            <div className="sidebar-brand-sub">Trang quản trị</div>
           </div>
         </Link>
 
         <nav className="sidebar-nav">
           {navItems.map((item, i) => {
             if (item.section) {
-              // Hide management section for non-staff
-              if (item.section === 'MANAGEMENT' && !isStaff) return null;
+              if (item.staff && !isStaff) return null;
               return <div key={i} className="sidebar-section-label">{item.section}</div>;
             }
-            if (item.href === '/admin/products' && !isStaff) return null;
-            if (item.href === '/admin/orders' && !isStaff) return null;
-            if (item.href === '/admin/coupons' && !isStaff) return null;
-            if (item.href === '/admin/posts' && !isStaff) return null;
-            if (item.href === '/admin/files' && !isStaff) return null;
-            if (item.href === '/admin/members' && !isStaff) return null;
-            if (item.href === '/admin/pages' && !isStaff) return null;
-            if (item.href === '/admin/settings' && !isStaff) return null;
-
+            if (item.staff && !isStaff) return null;
             return (
               <Link
                 key={item.href}
@@ -142,27 +138,21 @@ export default function AdminShell({ children, title = 'Dashboard' }) {
           })}
         </nav>
 
-        {/* User profile card */}
+        {/* User card */}
         <div className="sidebar-user">
           {mounted && user ? (
             <div>
               <div className="sidebar-user-info">
                 <div className="sidebar-avatar">{initials}</div>
                 <div style={{ flex: 1, overflow: 'hidden' }}>
-                  <div className="sidebar-user-name" title={user.displayName}>
-                    {user.displayName}
-                  </div>
+                  <div className="sidebar-user-name" title={user.displayName}>{user.displayName}</div>
                   <div className="sidebar-user-role">
                     {roleLabel[user.role] || user.role} <span className="tier-tag">{user.tier}</span>
                   </div>
                 </div>
               </div>
-              <button
-                onClick={handleLogout}
-                disabled={loggingOut}
-                className="btn-logout"
-              >
-                {loggingOut ? 'Logging out...' : '⎋ Sign Out'}
+              <button onClick={handleLogout} disabled={loggingOut} className="btn-logout">
+                {loggingOut ? 'Đang đăng xuất...' : '⎋ Đăng xuất'}
               </button>
             </div>
           ) : (
@@ -173,21 +163,12 @@ export default function AdminShell({ children, title = 'Dashboard' }) {
         </div>
       </aside>
 
-      {/* Main content body */}
+      {/* Main */}
       <div className="admin-main">
-        {/* Floating mobile toggle button */}
-        <button
-          className="sidebar-mobile-toggle-floating"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          aria-label="Menu"
-        >
-          ☰
-        </button>
-
+        <button className="sidebar-mobile-toggle-floating" onClick={() => setSidebarOpen(!sidebarOpen)} aria-label="Menu">☰</button>
         <header className="admin-content-header">
           <h2>{title}</h2>
         </header>
-
         <main className="admin-content">
           {children}
         </main>

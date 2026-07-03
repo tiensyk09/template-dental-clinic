@@ -62,7 +62,7 @@ export default function AdminDashboardPage() {
 
   if (loading) {
     return (
-      <AdminShell title="Loading Dashboard...">
+      <AdminShell title="Đang tải...">
         <div style={{ display: 'flex', justifyContent: 'center', padding: '60px' }}>
           <div style={{ width: '40px', height: '40px', border: '3px solid rgba(139, 92, 246, 0.2)', borderTopColor: 'var(--admin-primary)', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
           <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
@@ -76,7 +76,7 @@ export default function AdminDashboardPage() {
   if (!isStaff) {
     // Renders user tier/rank dashboard for customer accounts
     return (
-      <AdminShell title="Customer Dashboard">
+      <AdminShell title="Bảng điều khiển">
         <div className="adm-card">
           <div className="adm-card-header">
             <div className="adm-card-title">👤 Account Profile Details</div>
@@ -84,15 +84,15 @@ export default function AdminDashboardPage() {
           <div className="adm-card-body" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
               <div>
-                <span style={{ fontSize: '12px', color: 'var(--admin-muted)', display: 'block' }}>Username</span>
+                <span style={{ fontSize: '12px', color: 'var(--admin-muted)', display: 'block' }}>Tên đăng nhập</span>
                 <strong style={{ fontSize: '18px' }}>{user?.username}</strong>
               </div>
               <div>
-                <span style={{ fontSize: '12px', color: 'var(--admin-muted)', display: 'block' }}>Display Name</span>
+                <span style={{ fontSize: '12px', color: 'var(--admin-muted)', display: 'block' }}>Tên hiển thị</span>
                 <strong style={{ fontSize: '18px' }}>{user?.displayName}</strong>
               </div>
               <div>
-                <span style={{ fontSize: '12px', color: 'var(--admin-muted)', display: 'block' }}>Email Address</span>
+                <span style={{ fontSize: '12px', color: 'var(--admin-muted)', display: 'block' }}>Địa chỉ email</span>
                 <strong style={{ fontSize: '18px' }}>{user?.email}</strong>
               </div>
               <div>
@@ -119,7 +119,7 @@ export default function AdminDashboardPage() {
 
   // Staff (Admins and Mods) dashboard stats
   return (
-    <AdminShell title="System Dashboard">
+    <AdminShell title="Bảng điều khiển">
       {!dbReady && (
         <div className="adm-alert adm-alert-info">
           🗄️ Database tables or tables check failed. Press button to inspect/create schema tables.

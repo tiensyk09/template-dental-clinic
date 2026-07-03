@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LogoTooth, IconLocation, IconMail, IconClock, IconFacebook, IconInstagram, IconYoutube, IconTiktok, IconCalendar } from '@/components/icons';
+import { SocialIcon, buildSocialLinks } from '@/components/SocialLinks';
 
 const BLUE = '#1a6fc4';
 const NAVY = '#0c3061';
@@ -12,6 +13,10 @@ export default function Header() {
   const [isServiceOpen, setIsServiceOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [socialLinks, setSocialLinks] = useState([]);
+  React.useEffect(() => {
+    fetch('/api/settings').then((r) => r.ok ? r.json() : null).then((d) => { if (d?.settings) setSocialLinks(buildSocialLinks(d.settings)); }).catch(() => {});
+  }, []);
 
   React.useEffect(() => {
     async function checkUser() {
@@ -89,16 +94,16 @@ export default function Header() {
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            {socials.map((s, i) => (
+            {socialLinks.map((s) => (
               <a
-                key={i}
-                href="#"
+                key={s.key}
+                href={s.url} target="_blank" rel="noopener noreferrer"
                 aria-label={s.label}
                 style={{ width: 24, height: 24, borderRadius: 999, border: '1px solid rgba(255,255,255,0.4)', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', transition: 'all 0.15s' }}
                 onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#fff'; e.currentTarget.style.color = NAVY; }}
                 onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#fff'; }}
               >
-                {s.icon}
+                <SocialIcon platform={s.key} size={13} />
               </a>
             ))}
           </div>

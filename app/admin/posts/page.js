@@ -74,7 +74,7 @@ export default function PostsPage() {
   });
 
   return (
-    <AdminShell title="Manage Changelog / Posts">
+    <AdminShell title="Bài viết & Tin tức">
       {msg && (
         <div className={`adm-alert adm-alert-${msg.type === 'success' ? 'success' : 'error'}`}>
           {msg.text}

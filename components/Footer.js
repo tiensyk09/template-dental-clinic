@@ -2,11 +2,19 @@
 import React from 'react';
 import Link from 'next/link';
 import { LogoTooth, IconLocation, IconMail, IconClock, IconGlobe, IconPhoneFilled, IconFacebook, IconInstagram, IconYoutube, IconTiktok, IconShieldCheck } from '@/components/icons';
+import { SocialIcon, buildSocialLinks } from '@/components/SocialLinks';
 
 const BLUE = '#1a6fc4';
 const NAVY = '#0a2a52';
 
 export default function Footer() {
+  const [socialLinks, setSocialLinks] = React.useState([]);
+  React.useEffect(() => {
+    fetch('/api/settings')
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => { if (d?.settings) setSocialLinks(buildSocialLinks(d.settings)); })
+      .catch(() => {});
+  }, []);
   const aboutLinks = [
     { label: 'Giới thiệu', href: '/about' },
     { label: 'Đội ngũ bác sĩ', href: '/about' },
@@ -65,16 +73,16 @@ export default function Footer() {
                 khỏe đẹp và cuộc sống hạnh phúc.
               </p>
               <div style={{ display: 'flex', gap: 10, marginBottom: 18 }}>
-                {socials.map((s, i) => (
+                {socialLinks.map((s) => (
                   <a
-                    key={i}
-                    href="#"
+                    key={s.key}
+                    href={s.url} target="_blank" rel="noopener noreferrer"
                     aria-label={s.label}
                     style={{ width: 32, height: 32, borderRadius: 999, backgroundColor: 'rgba(255,255,255,0.1)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', transition: 'background 0.2s' }}
                     onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = BLUE; }}
                     onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)'; }}
                   >
-                    {s.icon}
+                    <SocialIcon platform={s.key} size={14} />
                   </a>
                 ))}
               </div>

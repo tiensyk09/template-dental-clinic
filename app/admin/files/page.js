@@ -285,7 +285,7 @@ export default function FilesPage() {
   const currentList = activeTab === 'library' ? filtered : filteredAttachments;
 
   return (
-    <AdminShell title="Files & Assets Manager">
+    <AdminShell title="Tệp & Media">
       {msg && <div className={`adm-alert adm-alert-${msg.type === 'success' ? 'success' : 'error'}`}>{msg.text}</div>}
 
       {/* Tabs */}

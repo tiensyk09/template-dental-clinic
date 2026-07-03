@@ -39,6 +39,7 @@ const tables = [
     email VARCHAR(255) NOT NULL UNIQUE,
     created_at VARCHAR(100) NOT NULL DEFAULT (datetime('now'))
   )`,
+  `CREATE TABLE IF NOT EXISTS contact_messages (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255) NOT NULL, phone VARCHAR(100), email VARCHAR(255), subject VARCHAR(255), message TEXT NOT NULL, status VARCHAR(50) NOT NULL DEFAULT 'new', created_at VARCHAR(100) NOT NULL DEFAULT (datetime('now')))`,
   `CREATE TABLE IF NOT EXISTS settings (
     \`key\` VARCHAR(255) NOT NULL PRIMARY KEY,
     \`value\` TEXT
@@ -255,6 +256,15 @@ const settings = [
     { label: 'Liên hệ', href: '/contact' },
   ])],
   ['footer_copyright', '© 2024 Nha Khoa Smile. All rights reserved.'],
+  ['social_facebook', ''],
+  ['social_zalo', ''],
+  ['social_youtube', ''],
+  ['social_tiktok', ''],
+  ['social_instagram', ''],
+  ['social_x', ''],
+  ['social_telegram', ''],
+  ['social_discord', ''],
+  ['social_linkedin', ''],
 ];
 for (const [key, val] of settings) {
   await q('REPLACE INTO settings (`key`, `value`) VALUES (?, ?)', [key, val]);

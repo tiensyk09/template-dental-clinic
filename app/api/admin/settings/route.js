@@ -10,7 +10,7 @@ export async function GET() {
   if (authErr) return NextResponse.json({ error: authErr.error }, { status: authErr.status });
 
   try {
-    const rows = await query('SELECT "key", "value" FROM settings');
+    const rows = await query('SELECT `key`, `value` FROM settings');
     const settings = {};
     rows.forEach(r => {
       settings[r.key] = r.value;
@@ -33,7 +33,7 @@ export async function PUT(request) {
     for (const [key, val] of Object.entries(body)) {
       if (val === null || val === undefined) continue;
       await query(
-        'INSERT OR REPLACE INTO settings ("key", "value") VALUES (?, ?)',
+        'INSERT OR REPLACE INTO settings (`key`, `value`) VALUES (?, ?)',
         [key, String(val)]
       );
     }
