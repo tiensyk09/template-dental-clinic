@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { LogoTooth, IconLocation, IconMail, IconClock, IconGlobe, IconPhoneFilled, IconFacebook, IconInstagram, IconYoutube, IconTiktok, IconShieldCheck } from '@/components/icons';
 import { SocialIcon, buildSocialLinks } from '@/components/SocialLinks';
+import { Editable } from '@/components/LiveEditor';
 
 const BLUE = '#1a6fc4';
 const NAVY = '#0a2a52';
@@ -64,8 +65,8 @@ export default function Footer() {
               <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: 16 }}>
                 <LogoTooth size={44} color="#fff" />
                 <div style={{ lineHeight: 1 }}>
-                  <span style={{ display: 'block', fontSize: 10.5, fontWeight: 800, letterSpacing: '0.14em', color: '#fff' }}>NHA KHOA</span>
-                  <span style={{ display: 'block', fontSize: 23, fontWeight: 900, letterSpacing: '0.02em', color: '#fff', marginTop: 1 }}>SMILE</span>
+                  <Editable k="brand_name1" def="NHA KHOA" as="span" style={{ display: 'block', fontSize: 10.5, fontWeight: 800, letterSpacing: '0.14em', color: '#fff' }} />
+                  <Editable k="brand_name2" def="SMILE" as="span" style={{ display: 'block', fontSize: 23, fontWeight: 900, letterSpacing: '0.02em', color: '#fff', marginTop: 1 }} />
                 </div>
               </Link>
               <p style={{ fontSize: 12.5, lineHeight: 1.75, color: '#9db8d8', fontWeight: 500, marginBottom: 18, maxWidth: 240 }}>
@@ -134,23 +135,23 @@ export default function Footer() {
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 13, fontSize: 12.5, fontWeight: 500, color: '#9db8d8' }}>
                 <li style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                   <IconLocation size={16} style={{ flexShrink: 0, marginTop: 1, color: '#6fb2f5' }} />
-                  <span>123 Đường Nguyễn Văn Cừ,<br />Quận 1, TP. Hồ Chí Minh</span>
+                  <Editable k="contact_address" def={"123 Đường Nguyễn Văn Cừ,\nQuận 1, TP. Hồ Chí Minh"} as="span" multiline />
                 </li>
                 <li style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                   <IconPhoneFilled size={15} style={{ flexShrink: 0, color: '#6fb2f5' }} />
-                  <span style={{ color: '#fff', fontWeight: 800, fontSize: 13.5 }}>1900 1234</span>
+                  <Editable k="contact_phone" def="1900 1234" as="span" style={{ color: '#fff', fontWeight: 800, fontSize: 13.5 }} />
                 </li>
                 <li style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                   <IconMail size={16} style={{ flexShrink: 0, color: '#6fb2f5' }} />
-                  <span>info@nhakhoasmile.vn</span>
+                  <Editable k="contact_email" def="info@nhakhoasmile.vn" as="span" />
                 </li>
                 <li style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                   <IconGlobe size={16} style={{ flexShrink: 0, color: '#6fb2f5' }} />
-                  <span>www.nhakhoasmile.vn</span>
+                  <Editable k="contact_website" def="www.nhakhoasmile.vn" as="span" />
                 </li>
                 <li style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                   <IconClock size={16} style={{ flexShrink: 0, color: '#6fb2f5' }} />
-                  <span>8:00 - 20:00 (Tất cả các ngày)</span>
+                  <Editable k="contact_hours" def="8:00 - 20:00 (Tất cả các ngày)" as="span" />
                 </li>
               </ul>
             </div>
