@@ -173,7 +173,7 @@ export default function Footer() {
       <a
         href="tel:19001234"
         className="dk-hotline-float"
-        style={{ position: 'fixed', bottom: 22, right: 22, zIndex: 90, display: 'flex', alignItems: 'center', gap: 10, backgroundColor: '#fff', borderRadius: 999, padding: '7px 18px 7px 7px', boxShadow: '0 10px 30px rgba(12,48,97,0.35)', textDecoration: 'none', border: '1px solid #e3eef9' }}
+        style={{ position: 'fixed', bottom: 22, left: 22, zIndex: 90, display: 'flex', alignItems: 'center', gap: 10, backgroundColor: '#fff', borderRadius: 999, padding: '7px 18px 7px 7px', boxShadow: '0 10px 30px rgba(12,48,97,0.35)', textDecoration: 'none', border: '1px solid #e3eef9' }}
       >
         <span style={{ width: 42, height: 42, borderRadius: 999, background: `linear-gradient(135deg, ${BLUE}, ${NAVY})`, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', animation: 'dkRing 1.6s ease-in-out infinite' }}>
           <IconPhoneFilled size={19} />
