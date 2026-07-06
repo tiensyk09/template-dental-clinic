@@ -76,7 +76,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#0c3061', margin: '0 0 6px 0' }}>Trụ sở chính</h4>
-                  <p style={{ fontSize: '14px', color: '#4b5563', lineHeight: 1.5, margin: 0 }}>Xã Trà Linh, huyện Nam Trà My, tỉnh Quảng Nam</p>
+                  <p style={{ fontSize: '14px', color: '#4b5563', lineHeight: 1.5, margin: 0 }}>45 Lê Lợi, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh</p>
                 </div>
               </div>
 
@@ -116,7 +116,7 @@ export default function ContactPage() {
             <div style={{ background: 'linear-gradient(135deg, #1a6fc4 0%, #0c3061 100%)', color: '#ffffff', borderRadius: '20px', padding: '28px', boxShadow: '0 4px 20px rgba(13, 104, 50, 0.1)' }}>
               <h4 style={{ fontSize: '15px', fontWeight: 800, margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Nha Khoa Smile</h4>
               <p style={{ fontSize: '13px', lineHeight: 1.5, opacity: 0.9, margin: 0 }}>
-                Giấy chứng nhận đăng ký hộ kinh doanh số: 38B8000132 do Phòng Tài chính - Kế hoạch Huyện Nam Trà My - Tỉnh Quảng Nam cấp ngày 12/03/2019.
+                Giấy chứng nhận đăng ký hộ kinh doanh số: 38B8000132 do Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh cấp ngày 12/03/2019.
               </p>
             </div>
 

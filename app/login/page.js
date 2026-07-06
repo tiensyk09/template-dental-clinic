@@ -44,7 +44,7 @@ function LoginPageContent() {
       fontFamily: "'Inter', sans-serif",
       position: 'relative',
       overflow: 'hidden',
-      background: 'linear-gradient(135deg, #0c3061 0%, #0c3061 40%, #1a6fc4 70%, #1a3a1a 100%)'
+      background: 'linear-gradient(135deg, #0c3061 0%, #0c3061 40%, #1a6fc4 70%, #0a1f3d 100%)'
     }}>
       {/* Decorative background circles */}
       <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '320px', height: '320px', borderRadius: '50%', background: 'rgba(212,175,55,0.08)', pointerEvents: 'none' }} />
@@ -251,7 +251,7 @@ export default function UserLoginPage() {
         alignItems: 'center',
         justifyContent: 'center',
         fontFamily: "'Inter', sans-serif",
-        background: 'linear-gradient(135deg, #0c3061 0%, #0c3061 40%, #1a6fc4 70%, #1a3a1a 100%)',
+        background: 'linear-gradient(135deg, #0c3061 0%, #0c3061 40%, #1a6fc4 70%, #0a1f3d 100%)',
         color: '#fff'
       }}>
         Đang tải...
